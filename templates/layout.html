@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/jquery.js') }}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='scripts/dayjs.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='scripts/myscript.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='scripts/script_cpl.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style/style2.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style/style_tab.css')}}">
+<title>AgriBecky</title>
+</head>
+<body>
+<table class="top">
+<tr>
+<td class="left"><span class="title">AgriBecky</span></td><td class="right"><span id="time"></span></td>
+</tr>
+</table>
+<div class="tabs">
+    <input id="btn_main" type="radio" name="tab_item" value="main" checked>
+    <label class="tab_item" for="main">メイン</label>
+    <input id="btn_cpl" type="radio" name="tab_item" value="cpl">
+    <label class="tab_item" for="cpl">制御盤</label>
+    <input id="btn_log" type="radio" name="tab_item" value="log">
+    <label class="tab_item" for="log">ログ</label>
+</div>
+<div class="parent">
+        {% block content %}{% endblock  %}
+</div>
+</body>
+</html>

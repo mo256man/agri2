@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block main %}{% endblock %}
+{% block cpl %}selected{% endblock %}
+{% block log %}{% endblock %}
+
+{% block content %}
+<div class="cpl">
+    <b>制御盤</b>　状態：<b id="stateAuto"></b><br>
+    <br>
+    <table>
+        <tr><td class="left">自動</td><td class="right">各個</td></tr>
+        <tr><td colspan="2"><div id="swAuto"><img src="{{url_for('static', filename='images/sw_l.png')}}" id="imgAuto" class="imgAuto"></div></td></tr>
+    </table>
+    <br>
+    <table>
+        <tr><td>ランプ点灯</td><td>育成LED強制ON</td></tr>
+        <tr><td class="center"><div id="btnLight"><img src="{{url_for('static', filename='images/btn_normal.png')}}" id="imgLight"></div></td>
+            <td class="center"><div id="btnLedOn"><img src="{{url_for('static', filename='images/btn_normal.png')}}" id="imgLedOn"></div></td></tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+</div>
+<div class="sim">
+    <b>シミュレーション画面</b>
+    <table>
+        <tr>
+            <td class="center">
+                <img src="{{url_for('static', filename='images/tent.jpg')}}" class="tent">
+            </td>
+            <td class="center">
+                <img src="{{url_for('static', filename='images/led_off.png')}}" class="led" id="imgLed">
+            </td>
+        </tr>
+        <tr>
+            <td class="center">
+                <table class="tent">
+                    <tr><td class="label">①</td>
+                        <td class="label">②</td>
+                        <td class="label">⑤</td>
+                        <td class="label">④</td>
+                        <td class="label">③</td></tr>
+                    <tr><td class="lamp"><span id="lamp0">●</span></td>
+                        <td class="lamp"><span id="lamp1">●</span></td>
+                        <td class="lamp"><span id="lamp2">●</span></td>
+                        <td class="lamp"><span id="lamp3">●</span></td>
+                        <td class="lamp"><span id="lamp4">●</span></td></tr>
+                </table>
+            </td>
+            <td class="center">
+                <table class="tent">
+                    <tr><td class="label_led">育成LED</td></tr>
+                    <tr><td class="lamp_led"><span id="lamp_led">●</span></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript" src="{{url_for('static', filename='scripts/script_cpl.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/jquery.js') }}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='scripts/dayjs.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='scripts/myscript.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style/style.css')}}">
+<title>AgriBecky</title>
+</head>
+<body>
+<div class="top">
+    <span class="left"><h1>AgriBecky</h1>　<span class="time" id="time"></span></span>
+    <span class="right"><span class="btnTry" id="btnTry">トライ</span></span>
+</div>
+<div class="layout">
+<div class="env">
+    <hr>
+    <table class="ephem">
+        <tr><td class="d2 center">
+            日の出 <span id="today_sunrise"></span><br>
+            日の入り <span id="today_sunset"></span><br><br>
+            月相 <span id="moon_phase"></span></td>
+            <td class="center"><img id="moon_image"></td></tr>
+    </table>
+    <hr>
+    <table class="ephem">
+        <tr><td class="d4 right">気温：</td>
+            <td class="d4 left"><span id="temp"></span></td>
+            <td class="d4 right">湿度：</td>
+            <td class="d4 left"><span id="humi"></span></td></tr>
+    </table>
+    <hr>
+    <b>バッテリ残容量</b>
+    <table class="volt">
+        <tr><td>
+                <tr>
+                    <td class="d2 right"><span id="wh"></span>Wh</td>
+                    <td class="d2 left">（<span id="volt"></span>）</td>
+                </tr>
+                <tr>
+                    <td class="d2 right">電圧</td>
+                    <td class="d2 left"><span id="v"></span>V/<span id="maxv"></span></td>
+                </tr>
+            </table>
+            <div id="meter-frame">
+                <div id="meter-bar"></div>
+                <div id="meter-mark"></div>
+            </div>
+            <div class="bar_frame">
+                <div id="bar_red" class="bar red"></div>
+                <div id="bar_yellow" class="bar yellow"></div>
+                <div id="bar_green" class="bar green"></div>
+            </div>
+            <div style="width: 80%; margin: 0 auto;">
+                <div class="left">バッテリ満充電</div>
+                <div class="right"><span id="maxwh"></span></div>
+                <div class="left">朝夕の点灯1.5H分に必要な量</div>
+                <div class="right"><span id="red3h"></span></div>
+                <div class="left">バッテリ残＋風力充電見込み</div>
+                <div class="right"><span id="totalwh"></span></div>
+                <div class="left">次の3H分に必要な量</div>
+                <div class="right"><span id="yellow3h"></span></div>
+            </div>
+        </td></tr>
+    </table>
+</div>
+<div class="cmd" id="msg">
+
+</div>
+<div class="seigyoban">
+<div class="label">制御盤</div>
+<table>
+<tr>
+<td>
+    <table>
+    <tr><td class="right">状態：</td><td><b id="stateAuto"></b></td></tr>
+    <tr><td class="left">自動</td><td class="right">各個</td></tr>
+    <tr><td colspan="2"><div id="swAuto"><img src="{{url_for('static', filename='images/sw_l.png')}}" id="imgAuto" class="imgAuto"></div></td></tr>
+    </table>
+</td>
+<td>
+    <table>
+    <tr><td>ランプ点灯</td><td>育成LED強制ON</td></tr>
+    <tr><td class="center"><div id="btnLight"><img src="{{url_for('static', filename='images/btn_normal.png')}}" id="imgLight"></div></td>
+        <td class="center"><div id="btnLedOn"><img src="{{url_for('static', filename='images/btn_normal.png')}}" id="imgLedOn"></div></td></tr>
+    </table>
+</td>
+</tr>
+</table>
+<br>
+<table>
+<tr>
+    <td class="center">
+        <img src="{{url_for('static', filename='images/tent.jpg')}}" class="tent">
+    </td>
+    <td class="center">
+        <img src="{{url_for('static', filename='images/led_off.png')}}" class="led" id="imgLed">
+    </td>
+</tr>
+<tr>
+    <td class="center">
+        <table class="tent">
+            <tr><td class="label">①</td>
+                <td class="label">②</td>
+                <td class="label">⑤</td>
+                <td class="label">④</td>
+                <td class="label">③</td></tr>
+            <tr><td class="lamp"><span id="lamp0">●</span></td>
+                <td class="lamp"><span id="lamp1">●</span></td>
+                <td class="lamp"><span id="lamp2">●</span></td>
+                <td class="lamp"><span id="lamp3">●</span></td>
+                <td class="lamp"><span id="lamp4">●</span></td></tr>
+        </table>
+    </td>
+    <td class="center">
+        <table class="tent">
+            <tr><td class="label_led">育成LED</td></tr>
+            <tr><td class="lamp_led"><span id="lamp_led">●</span></td></tr>
+        </table>
+    </td>
+</tr>
+</table>
+
+</div>
+</div>
+</body>
+</html>
