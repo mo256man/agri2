@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
 from myEphem import Ephem
 import json
+import random
+from time import sleep
+# from gpiozero import MCP3004
 
 nagoya = {"place": "名古屋",
             "lat": 35.1667,
@@ -15,28 +18,19 @@ battery = { "Ah": 100,
             "charge": 1500  # ソーラー＋風力での発電（Wh）
             }
 
+# MCP3004でアナログ値を取得する
+def analog_read(ch):
+#     adc = MCP3004(ch).value
+    adc = 0
+    return adc
+
+
 app = Flask(__name__)
 
 @app.route("/")
 def index():
     # return render_template("index.html")
     return render_template("screen.html")
-
-
-@app.route("/main")
-def main():
-    print("main")
-    return render_template("main.html")
-
-@app.route("/cpl")
-def cpl():
-    print("cpl")
-    return render_template("cpl.html")
-
-@app.route("/log")
-def log():
-    print(log)
-    return render_template("log.html")
 
 @app.route("/getBattSetting", methods = ["POST"])
 def getBattSetting():
@@ -46,14 +40,32 @@ def getBattSetting():
 
 @app.route("/getEphem", methods = ["POST"])
 def getEphem():
-    if request.method == "POST":
-        try:
-            ephem = Ephem(nagoya)       # 名古屋のEphemを取得する
-            dict = ephem.get_data()     # データを辞書として取得する
-        except Exception as e:
-            message = str(e)
-            dict = {"answer": message}  # エラーメッセージ
+    try:
+        ephem = Ephem(nagoya)       # 名古屋のEphemを取得する
+        dict = ephem.get_data()     # データを辞書として取得する
+    except Exception as e:
+        message = str(e)
+        dict = {"answer": message}  # エラーメッセージ
     return json.dumps(dict)             # 辞書をJSONにして返す
+
+# バッテリー電圧
+@app.route("/getBatt", methods=["POST"])
+def getBatt():
+    if request.method == "POST":
+        is_test = request.form["isTest"]
+        print(is_test)
+        dict = {}
+        if is_test:
+            dict["ana3"] = random.randint(0, 100)
+            dict["ana0"] = random.randint(0, 100)
+            sleep(3)
+        else:
+            ana3 = analog_read(ch=3)
+            ana0 = analog_read(ch=0)
+            dict["ana3"] = int(ana3*100)
+            dict["ana0"] = int(ana0*100)
+        print(dict)
+        return json.dumps(dict)
 
 
 """

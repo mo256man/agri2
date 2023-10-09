@@ -17,6 +17,7 @@ let voltID      // setInterval()でgetVoltする際のID
 let now, today, time
 let logMsg="";
 let logTxt="";
+let bp;
 
 $(async function() {
     // 読み込み完了後に一度だけ実行する関数
@@ -108,7 +109,7 @@ function getNow() {
 };
 
 // 時計　兼　アラーム
-function showTime() {
+async function showTime() {
     getNow();
     $("#time").html(today + " " + time);
 
@@ -123,9 +124,10 @@ function showTime() {
             get_or_try_Humi();
         }
         // 10分ごとバッテリ残容量を更新する
-        if (m%10==0 && s==0) {
+        if (s==10) {
             addMsg(time + "　バッテリ残容量更新");
-            get_or_try_Volt();
+            bp = await getBatt(isTry);
+            console.log("bp=" + bp);
         }
         // 1分ごとに光センサーを更新する　ただし自動制御中のみ
         if (! isForce) {
@@ -427,11 +429,11 @@ function tryVolt() {
 }
 
 // 電圧（本番）
-function getVolt() {
+async function getVolt() {
     $("#humi_time").text(time);
     $("#temp").text(30 + "℃");
     $("#humi").text(60 + "％");
-    $.ajax("/getHumi", {
+    await $.ajax("/getHumi", {
         type: "POST",
     }).done(function(data) {
         var dict = JSON.parse(data);
@@ -448,6 +450,24 @@ function getVolt() {
         console.log("温湿度取得失敗");
     });
 };
+
+//
+async function getBatt(isTest) {
+    let bat = 0;
+    await $.ajax("/getBatt", {
+        type: "post",
+        data: {"isTest": isTest},              // 連想配列をPOSTする
+    }).done(function(data) {
+        const dict = JSON.parse(data);
+        bat = dict["ana3"];
+    }).fail(function() {
+        console.log("バッテリー電圧取得失敗");
+    });
+    console.log("bat="+bat);
+    return bat
+}
+
+
 
 // バッテリーの設定を表示する関数
 function showBatt() {
