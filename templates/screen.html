@@ -13,7 +13,15 @@
 <table class="top">
 <tr>
 <td class="left"><span class="title">AgriBecky</span></td>
-<td class="right"><span class="btnTry" id="btnTry">トライ</span><span id="time"></span></td>
+<td class="right">
+    <table>
+        <tr><td>温湿度計</td><td>光センサー</td><td>バッテリ電圧</td><td>育成LED</td></tr>
+        <tr><td><span class="btnTry" id="HumiTry">トライ</span></td>
+            <td><span class="btnTry" id="BattTry">トライ</span></td>
+            <td><span class="btnTry" id="LightTry">トライ</span></td>
+            <td><span class="btnTry" id="LEDTry">トライ</span></td></tr>
+    </table>
+    <span id="time"></span></td>
 </tr>
 </table>
 
@@ -29,10 +37,10 @@
         <div class="parent">
             <div class="ephem">
                 <b>設定</b><br>
-                　日の出 <span id="sunrise">00:00</span><br>
-                　　育成LEDオン　<span id="morning_light_time">00:00</span>～日の出<br>
-                　日の入り <span id="sunset">00:00</span><br>
-                　　育成LEDオフ　日没～<span id="evening_light_time">00:00</span><br>
+                育成LEDオン<br>
+                　日の出 <span id="sunrise">00:00</span>～<span id="morning_light_time">00:00</span><br>
+                <br>
+                　日の入り <span id="sunset">00:00</span>～<span id="evening_light_time">00:00</span><br>
                 <hr>
                 <b>月齢</b><br>
                 <span id="moon_phase">14.0</span><br>
